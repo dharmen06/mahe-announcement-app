@@ -1,0 +1,221 @@
+{% if shop.metafields.my_app.announcement != blank %}
+<div id="mahe-announcement-banner" class="mahe-banner-hidden" role="banner" aria-live="polite">
+  <div class="mahe-shimmer"></div>
+  <div class="mahe-banner-inner">
+   
+    <div class="mahe-banner-center">
+      
+      <span class="mahe-banner-text">{{ shop.metafields.my_app.announcement }}</span>
+    </div>
+    <div class="mahe-banner-right">
+      <button id="mahe-banner-close" aria-label="Dismiss announcement" type="button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+#mahe-announcement-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 99999999;
+  overflow: hidden;
+  background: linear-gradient(90deg, #7c3aed 0%, #a855f7 25%, #ec4899 55%, #f97316 80%, #eab308 100%);
+  box-shadow: 0 2px 20px rgba(124, 58, 237, 0.45), 0 1px 0 rgba(255,255,255,0.12) inset;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease, transform 0.35s ease;
+  max-height: 60px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#mahe-announcement-banner.mahe-banner-hidden {
+  max-height: 0 !important;
+  opacity: 0 !important;
+  transform: translateY(-100%) !important;
+  pointer-events: none;
+}
+
+/* Shimmer sweep effect */
+.mahe-shimmer {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.18) 50%,
+    transparent 60%
+  );
+  animation: mahe-shimmer-sweep 3.5s infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes mahe-shimmer-sweep {
+  0%   { left: -100%; }
+  60%  { left: 160%; }
+  100% { left: 160%; }
+}
+
+/* Three-column flex layout: left | center | right */
+.mahe-banner-inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 16px;
+  height: 48px;
+  box-sizing: border-box;
+}
+
+/* LEFT — badge */
+.mahe-banner-left {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.mahe-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  background: rgba(255, 255, 255, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  border-radius: 999px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #ffffff;
+  text-transform: uppercase;
+  backdrop-filter: blur(4px);
+  white-space: nowrap;
+}
+
+/* CENTER — icon + text */
+.mahe-banner-center {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 16px;
+  overflow: hidden;
+}
+
+.mahe-banner-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+  animation: mahe-pulse 2s ease-in-out infinite;
+  filter: drop-shadow(0 0 6px rgba(255,255,255,0.5));
+}
+
+@keyframes mahe-pulse {
+  0%, 100% { transform: scale(1);   opacity: 1; }
+  50%       { transform: scale(1.2); opacity: 0.85; }
+}
+
+.mahe-banner-text {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: 0.025em;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* RIGHT — close button */
+.mahe-banner-right {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+#mahe-banner-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  flex-shrink: 0;
+}
+
+#mahe-banner-close:hover {
+  background: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15);
+  transform: scale(1.1) rotate(90deg);
+}
+
+#mahe-banner-close:active {
+  transform: scale(0.95);
+}
+
+@media (max-width: 640px) {
+  .mahe-badge {
+    display: none;
+  }
+  .mahe-banner-text {
+    font-size: 12px;
+  }
+  .mahe-banner-inner {
+    padding: 0 12px;
+    height: 44px;
+  }
+  #mahe-announcement-banner {
+    max-height: 52px;
+  }
+}
+</style>
+
+<script>
+(function() {
+  var text = {{ shop.metafields.my_app.announcement | json }};
+  if (!text) return;
+
+  var storageKey = 'mahe-announcement-dismissed';
+  if (localStorage.getItem(storageKey) === text) return;
+
+  var banner  = document.getElementById('mahe-announcement-banner');
+  var closeBtn = document.getElementById('mahe-banner-close');
+
+  if (banner && closeBtn) {
+    requestAnimationFrame(function() {
+      banner.classList.remove('mahe-banner-hidden');
+    });
+
+    closeBtn.addEventListener('click', function() {
+      banner.classList.add('mahe-banner-hidden');
+      localStorage.setItem(storageKey, text);
+    });
+  }
+})();
+</script>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Announcement",
+  "target": "body",
+  "settings": []
+}
+{% endschema %}
