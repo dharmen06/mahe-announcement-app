@@ -261,7 +261,7 @@ react-router-serve ./build/server/index.js
 Add your Loom or YouTube demo link here:
 
 ```text
-https://loom.com/share/your-demo-link
+https://www.loom.com/share/08192f748a1048639a6f07841d0343ce
 ```
 
 ---
